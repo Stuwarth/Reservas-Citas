@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "409001362898",
+    "project_id": "app-de-citas-e94e4",
+    "storage_bucket": "app-de-citas-e94e4.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:409001362898:android:a44ab2c27cc5dd8db0740b",
+        "android_client_info": {
+          "package_name": "com.reservascitas"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDw3feiNA_FgYYZq6XtgJVTA66xpN2tQ6I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
