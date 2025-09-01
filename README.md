@@ -28,26 +28,14 @@
 ## Visión general
 ReservasCitas es una app móvil en React Native para gestionar reservas de citas con proveedores. La app está optimizada para ser totalmente responsiva, soporta modo oscuro, notificaciones locales de recordatorio, y sincroniza datos en tiempo real con Firebase.
 
-## Capturas y dónde guardar imágenes
-- Carpeta: `ReservasCitas/docs/images/`
-- Nombres de archivos:
-  - `login.png`
-  - `register.png`
-  - `booking.png`
-  - `history.png`
-  - `providers.png`
-  - `settings-light.png`
-  - `settings-dark.png`
-- Inclusión en el README:
-  ```md
-  ![Login](./docs/images/login.png)
-  ![Registro](./docs/images/register.png)
-  ![Reservar](./docs/images/booking.png)
-  ![Historial](./docs/images/history.png)
-  ![Proveedores](./docs/images/providers.png)
-  ![Ajustes (Claro)](./docs/images/settings-light.png)
-  ![Ajustes (Oscuro)](./docs/images/settings-dark.png)
-  ```
+## Capturas
+![Login](./docs/images/login.png)
+![Registro](./docs/images/register.png)
+![Reservar](./docs/images/booking.png)
+![Historial](./docs/images/history.png)
+![Proveedores](./docs/images/providers.png)
+![Ajustes (Claro)](./docs/images/settings-light.png)
+![Ajustes (Oscuro)](./docs/images/settings-dark.png)
 
 ## Características principales
 - Responsividad completa con `SafeAreaView`, `KeyboardAvoidingView`, `ScrollView`/`FlatList`.
