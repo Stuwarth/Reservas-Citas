@@ -121,3 +121,5 @@ dependencies {
 // Apply Google Services plugin to read google-services.json
 apply plugin: 'com.google.gms.google-services'
 
+// Copy fonts from react-native-vector-icons into the app assets
+apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"

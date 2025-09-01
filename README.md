@@ -1,97 +1,166 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# ReservasCitas — App de Reservas de Citas (Profesional)
 
-# Getting Started
+<div align="left">
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+[![React Native](https://img.shields.io/badge/React%20Native-0.81.x-61DAFB?logo=react)](https://reactnative.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?logo=typescript)](https://www.typescriptlang.org/)
+[![Firebase](https://img.shields.io/badge/Firebase-Auth%20%7C%20Firestore-FFCA28?logo=firebase)](https://firebase.google.com/docs)
+[![Notifee](https://img.shields.io/badge/Notifee-Notifications-4B32C3)](https://notifee.app/react-native/reference)
+[![React Navigation](https://img.shields.io/badge/React%20Navigation-Native%20Stack-000000)](https://reactnavigation.org/)
 
-## Step 1: Start Metro
+</div>
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## Tabla de Contenidos
+- Visión general
+- Capturas y dónde guardar imágenes
+- Características principales
+- Arquitectura y Stack
+- Requisitos previos
+- Configuración y ejecución
+- Scripts útiles
+- Permisos y configuración nativa
+- Theming y Modo Oscuro
+- Notificaciones locales (Notifee)
+- Estructura del proyecto
+- Buenas prácticas y accesibilidad
+- Solución de problemas
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+## Visión general
+ReservasCitas es una app móvil en React Native para gestionar reservas de citas con proveedores. La app está optimizada para ser totalmente responsiva, soporta modo oscuro, notificaciones locales de recordatorio, y sincroniza datos en tiempo real con Firebase.
 
-```sh
-# Using npm
+## Capturas y dónde guardar imágenes
+- Carpeta: `ReservasCitas/docs/images/`
+- Nombres de archivos:
+  - `login.png`
+  - `register.png`
+  - `booking.png`
+  - `history.png`
+  - `providers.png`
+  - `settings-light.png`
+  - `settings-dark.png`
+- Inclusión en el README:
+  ```md
+  ![Login](./docs/images/login.png)
+  ![Registro](./docs/images/register.png)
+  ![Reservar](./docs/images/booking.png)
+  ![Historial](./docs/images/history.png)
+  ![Proveedores](./docs/images/providers.png)
+  ![Ajustes (Claro)](./docs/images/settings-light.png)
+  ![Ajustes (Oscuro)](./docs/images/settings-dark.png)
+  ```
+
+## Características principales
+- Responsividad completa con `SafeAreaView`, `KeyboardAvoidingView`, `ScrollView`/`FlatList`.
+- Modo oscuro y tema dinámico integrados con React Navigation.
+- Selector de fecha/hora adaptado por plataforma (iOS inline, Android en 2 pasos).
+- Notificaciones locales con canal dedicado y permisos en Android 13+.
+- Estados vacíos con CTA y pull-to-refresh en listas clave.
+- Sincronización de proveedores entre pantallas y recarga al enfocar.
+- Confirmación de éxito al reservar (modal animado + navegación automática).
+
+## Arquitectura y Stack
+- React Native 0.81.x + TypeScript
+- Navegación: `@react-navigation/native`, `@react-navigation/native-stack`, `react-native-screens`
+- UI/Temas: sistema propio en `src/theme/` (colores, tipografía, ThemeProvider)
+- Picker de fecha/hora: `@react-native-community/datetimepicker`
+- Notificaciones: `@notifee/react-native`
+- Backend: Firebase (`@react-native-firebase/auth`, `@react-native-firebase/firestore`)
+- Formularios/validación: `react-hook-form` y `yup` (si aplica)
+
+## Requisitos previos
+- Node.js 18+
+- Java JDK 17 y Android SDK (Android 13+ recomendado)
+- Xcode 15+ (para iOS, en macOS)
+- CocoaPods (`sudo gem install cocoapods`) en macOS
+- Cuenta de Firebase y archivos de configuración:
+  - Android: `android/app/google-services.json`
+  - iOS: `ios/GoogleService-Info.plist`
+
+## Configuración y ejecución
+1) Instalar dependencias JS:
+```bash
+npm install
+# o
+yarn
+```
+
+2) iOS (solo macOS):
+```bash
+cd ios && pod install && cd ..
+```
+
+3) Ejecutar Metro:
+```bash
 npm start
-
-# OR using Yarn
-yarn start
 ```
 
-## Step 2: Build and run your app
-
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
-
-### Android
-
-```sh
-# Using npm
+4) Ejecutar en dispositivo/emulador:
+```bash
 npm run android
-
-# OR using Yarn
-yarn android
-```
-
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
+# o
 npm run ios
-
-# OR using Yarn
-yarn ios
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+## Scripts útiles
+- `npm start`: inicia Metro
+- `npm run android`: compila e instala en Android
+- `npm run ios`: compila e instala en iOS (simulador por defecto)
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+## Permisos y configuración nativa
+Android (`android/app/src/main/AndroidManifest.xml`):
+- `POST_NOTIFICATIONS` para Android 13+
+- `RECEIVE_BOOT_COMPLETED` si deseas reprogramar recordatorios tras reinicio
 
-## Step 3: Modify your app
+Canal de notificaciones: se crea al iniciar la app (`reminders`).
 
-Now that you have successfully run the app, let's make changes!
+iOS:
+- Revisa capacidades de notificaciones y permisos en Xcode si activas notificaciones push remotas (para locales, basta con Notifee configurado).
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+Firebase:
+- Coloca `google-services.json` y `GoogleService-Info.plist` en rutas indicadas.
+- Android: asegura `classpath 'com.google.gms:google-services:...` y `apply plugin: 'com.google.gms.google-services'` en `android/app/build.gradle`.
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+## Theming y Modo Oscuro
+- Paletas en `src/theme/colors.ts` con `lightColors` y `darkColors`.
+- `ThemeProvider` expone `useTheme()` con `colors` y `isDark`.
+- `NavigationContainer` recibe un tema derivado para headers, tabs y fondo.
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+## Notificaciones locales (Notifee)
+- Permisos solicitados al iniciar en `App.tsx`.
+- Botón de prueba en `Settings` para validar.
+- Al reservar se programa un recordatorio; si la cita es muy cercana, se notifica pronto.
 
-## Congratulations! :tada:
+## Estructura del proyecto (resumen)
+```
+ReservasCitas/
+├─ android/
+├─ ios/
+├─ src/
+│  ├─ components/
+│  ├─ lib/            # helpers (toast, notifications, date)
+│  ├─ screens/        # Booking, Providers, History, Settings, etc.
+│  ├─ services/       # providersService, appointmentsService
+│  └─ theme/          # colors, typography, ThemeProvider
+├─ docs/
+│  └─ images/         # capturas para el README
+└─ App.tsx
+```
 
-You've successfully run and modified your React Native App. :partying_face:
+## Buenas prácticas y accesibilidad
+- Botones con targets cómodos y contraste suficiente.
+- Soporte de teclado con `KeyboardAvoidingView` y scroll asegurado.
+- Estados vacíos claros con CTA.
 
-### Now what?
+## Solución de problemas
+- Android 13+ no muestra notificaciones:
+  - Verifica permiso `POST_NOTIFICATIONS` y solicita permisos desde Ajustes.
+- El picker de Android se comporta raro:
+  - Se usa flujo en dos pasos (fecha → hora) para mayor estabilidad.
+- Spinners que no se detienen:
+  - Asegurado `finally` para `refreshing/saving` y timeouts en notificaciones.
+- iOS CocoaPods:
+  - Ejecuta `pod install` dentro de `ios/` tras cambiar dependencias nativas.
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+---
 
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+¿Dudas? Crea un issue o abre una PR. ¡Gracias por usar ReservasCitas!
